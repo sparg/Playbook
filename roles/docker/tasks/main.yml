@@ -1,7 +1,7 @@
-- name: Install Docker on Linux VM
-  hosts: linux_vm
-  become: yes
-  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+        
     - name: Update apt package index
       apt:
         update_cache: yes
@@ -22,12 +22,12 @@
 
     - name: Add Docker’s official GPG key
       apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
+        url: "{{ docker_gpg_key_url }}"
         state: present
 
     - name: Set up the stable repository
       apt_repository:
-        repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu jammy stable
+        repo: "{{ docker_repo_url }}"
         state: present
 
     - name: Update apt package index again
@@ -44,6 +44,14 @@
         name: docker
         state: started
         enabled: yes
+
+    - name: Create Docker group
+      command: sudo groupadd docker
+      ignore_errors: yes
+
+    - name: Add user to Docker group
+      command: sudo usermod -aG docker $USER
+      ignore_errors: yes
 
     - name: Verify Docker installation
       command: docker --version

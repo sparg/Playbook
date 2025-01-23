@@ -1,5 +1,18 @@
 # Playbook
 
+
+
+## Description: This script performs the following tasks:
+### 1. Connects to a remote server using SSH.
+### 2. Executes a series of commands on the remote server.
+### 3. Retrieves the output of the executed commands.
+### 4. Handles any errors that occur during the SSH connection or command execution.
+### 5. Closes the SSH connection after the commands have been executed.
+
+### Note:
+Variables related to Docker repositories:
+The variables may vary depending on the virtual machine (VM) distribution.
+
 ## Steps
 Steps for proper execution and verification of the code to be executed.
 
