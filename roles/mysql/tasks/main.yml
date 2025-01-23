@@ -1,0 +1,30 @@
+# filepath: /home/ivan/Playbook/roles/mysql/tasks/main.yml
+- name: Create a Docker network
+  docker_network:
+    name: "{{ docker_network_name }}"
+
+- name: Run MySQL container
+  docker_container:
+    name: "{{ mysql_container_name }}"
+    image: "{{ mysql_image }}"
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+      MYSQL_DATABASE: "{{ mysql_database }}"
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    state: started
+
+- name: Verifying MySQL installation
+  debug:
+    msg: "Verifying MySQL installation"
+    
+- name: Check if MySQL is running
+  command: docker ps --filter "name={{ mysql_container_name }}" --filter "status=running" --format "{{ '{{' }}.Names{{ '}}' }}"
+  register: mysql_running_containers
+
+- name: Fail if MySQL container is not running
+  fail:
+    msg: "MySQL container {{ mysql_container_name }} is not running!"
+  when: mysql_running_containers.stdout != "{{ mysql_container_name }}"
