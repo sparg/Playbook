@@ -2,4 +2,3 @@
 # The variables may vary depending on the virtual machine (VM) distribution.
 docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
 docker_repo_url: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-# ansible_user: "{{ lookup('env', 'USER') }}"
