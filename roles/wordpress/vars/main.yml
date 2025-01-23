@@ -1,0 +1,11 @@
+---
+# Variables for WordPress Docker setup
+wordpress_container_name: wordpress
+wordpress_image: wordpress:latest
+wordpress_db_host: db
+wordpress_db_user: wordpress
+wordpress_db_password: wordpress
+wordpress_db_name: wordpress
+wordpress_port_mapping: "8080:80"
+wordpress_network: wordpress_network
+wordpress_state: started
