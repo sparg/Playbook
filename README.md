@@ -2,7 +2,7 @@
 
 
 
-## Step 1: This script performs the following tasks:
+## Description: This script performs the following tasks:
 ### 1. Connects to a remote server using SSH.
 ### 2. Executes a series of commands on the remote server.
 ### 3. Retrieves the output of the executed commands.
