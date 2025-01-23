@@ -45,6 +45,14 @@
         state: started
         enabled: yes
 
+    - name: Create Docker group
+      command: sudo groupadd docker
+      ignore_errors: yes
+
+    - name: Add user to Docker group
+      command: sudo usermod -aG docker $USER
+      ignore_errors: yes
+
     - name: Verify Docker installation
       command: docker --version
       register: docker_version_output
