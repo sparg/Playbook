@@ -1,0 +1,19 @@
+- name: Copiar configuración de HAProxy desde la plantilla
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Verificar la configuración de HAProxy
+  command: haproxy -c -f /etc/haproxy/haproxy.cfg
+  register: haproxy_check
+  failed_when: haproxy_check.rc != 0
+  changed_when: false  # Marca la tarea como no cambiada
+
+- name: Habilitar y reiniciar HAProxy
+  service:
+    name: haproxy
+    state: restarted
+    enabled: yes

@@ -1,0 +1,9 @@
+---
+# roles/haproxy/vars/main.yml
+backend_servers:
+  - name: web1
+    ip: 192.168.1.101
+    port: 80
+  - name: web2
+    ip: 192.168.1.102
+    port: 80
