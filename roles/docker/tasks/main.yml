@@ -34,7 +34,7 @@
   apt:
     update_cache: yes
 
-- name: Install Docker
+- name: Install Docker CE
   apt:
     name: docker-ce
     state: present
