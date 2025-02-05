@@ -1,5 +1,5 @@
-- name: Deploy WordPress on Linux VM
-  hosts: all
+- name: Deploy and configure WordPress
+  hosts: containers_host
   become: yes
   roles:
     - role: wordpress

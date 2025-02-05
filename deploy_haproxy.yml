@@ -1,7 +1,5 @@
----
-# deploy_haproxy.yml
-- name: Desplegar y configurar HAProxy
-  hosts: myservers
+- name: Deploy and configure HAProxy
+  hosts: containers_host
   become: yes
   roles:
     - haproxy
