@@ -1,6 +1,5 @@
-# file: roles/docker/tasks/main.yml
 - name: Deploy Docker on Linux VM
-  hosts: all
+  hosts: containers_host
   become: yes
   roles:
     - role: docker

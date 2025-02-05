@@ -1,3 +1,5 @@
+# roles/docker/vars/main.yml
+---
 # Variables related to Docker repositories:
 # The variables may vary depending on the virtual machine (VM) distribution.
 docker_gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
