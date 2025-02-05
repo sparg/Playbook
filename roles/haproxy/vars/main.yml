@@ -1,9 +1,17 @@
----
 # roles/haproxy/vars/main.yml
+---
+# HAProxy container configuration
+haproxy_container_name: "haproxy_container"
+haproxy_image: "haproxy:latest"
 backend_servers:
-  - name: web1
-    ip: 192.168.1.101
-    port: 80
-  - name: web2
-    ip: 192.168.1.102
-    port: 80
+  - name: wordpress1
+    ip: 127.0.0.1
+    port: 8081
+  # - name: wordpress2
+  #   ip: 127.0.0.1
+  #   port: 8082
+
+# HAProxy stats configuration
+haproxy_stats_user: "admin"
+haproxy_stats_password: "password"
+haproxy_stats_port: 8080

@@ -1,4 +1,24 @@
-- name: Copiar configuración de HAProxy desde la plantilla
+---
+- name: Ensure Docker is installed
+  apt:
+    name: docker
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Create HAProxy configuration directory
+  file:
+    path: /etc/haproxy
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy HAProxy configuration from template
   template:
     src: haproxy.cfg.j2
     dest: /etc/haproxy/haproxy.cfg
@@ -6,14 +26,19 @@
     group: root
     mode: '0644'
 
-- name: Verificar la configuración de HAProxy
-  command: haproxy -c -f /etc/haproxy/haproxy.cfg
-  register: haproxy_check
-  failed_when: haproxy_check.rc != 0
-  changed_when: false  # Marca la tarea como no cambiada
+- name: Deploy HAProxy container
+  docker_container:
+    name: "{{ haproxy_container_name }}"
+    image: "{{ haproxy_image }}"
+    restart_policy: always
+    state: started
+    ports:
+      - "80:80"
+      - "{{ haproxy_stats_port }}:{{ haproxy_stats_port }}"
+    volumes:
+      - /etc/haproxy:/usr/local/etc/haproxy:ro
 
-- name: Habilitar y reiniciar HAProxy
-  service:
-    name: haproxy
-    state: restarted
-    enabled: yes
+- name: Ensure HAProxy container is running
+  docker_container:
+    name: "{{ haproxy_container_name }}"
+    state: started

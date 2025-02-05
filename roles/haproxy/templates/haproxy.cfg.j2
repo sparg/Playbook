@@ -13,6 +13,8 @@ defaults
     mode    http
     option  httplog
     option  dontlognull
+    option  forwardfor
+    http-request set-header X-Forwarded-For %[src]
     timeout connect 5000ms
     timeout client  50000ms
     timeout server  50000ms
@@ -28,7 +30,7 @@ backend http_back
     {% endfor %}
 
 frontend stats
-    bind *:8080
+    bind *:{{ haproxy_stats_port }}
     stats enable
     stats uri /stats
-    stats auth admin:password
+    stats auth {{ haproxy_stats_user }}:{{ haproxy_stats_password }}
