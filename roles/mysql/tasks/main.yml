@@ -1,30 +1,37 @@
-# filepath: /home/ivan/Playbook/roles/mysql/tasks/main.yml
-- name: Create a Docker network
-  docker_network:
-    name: "{{ docker_network_name }}"
+- name: Crear volumen para MySQL
+  docker_volume:
+    name: mysql_data
+    state: present
 
-- name: Run MySQL container
+- name: Crear y ejecutar el contenedor de MySQL
   docker_container:
     name: "{{ mysql_container_name }}"
     image: "{{ mysql_image }}"
+    state: started
+    restart_policy: always
     env:
       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
       MYSQL_DATABASE: "{{ mysql_database }}"
       MYSQL_USER: "{{ mysql_user }}"
       MYSQL_PASSWORD: "{{ mysql_password }}"
-    networks:
-      - name: "{{ docker_network_name }}"
-    state: started
+    published_ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
-- name: Verifying MySQL installation
+- name: Ajustar permisos del volumen de MySQL
+  file:
+    path: /var/lib/docker/volumes/mysql_data/_data
+    state: directory
+    owner: "999"
+    group: "999"
+    mode: "0755"
+
+- name: Verificar que el contenedor de MySQL esté en ejecución
+  docker_container_info:
+    name: "{{ mysql_container_name }}"
+  register: mysql_info
+
+- name: Mostrar información del contenedor de MySQL
   debug:
-    msg: "Verifying MySQL installation"
-    
-- name: Check if MySQL is running
-  command: docker ps --filter "name={{ mysql_container_name }}" --filter "status=running" --format "{{ '{{' }}.Names{{ '}}' }}"
-  register: mysql_running_containers
-
-- name: Fail if MySQL container is not running
-  fail:
-    msg: "MySQL container {{ mysql_container_name }} is not running!"
-  when: mysql_running_containers.stdout != "{{ mysql_container_name }}"
+    msg: "Estado: {{ mysql_info.container.State.Status }}"

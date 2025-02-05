@@ -1,5 +1,5 @@
-- name: Deploy MySQL on Linux VM
-  hosts: all
+- name: Deploy and configure MySQL
+  hosts: containers_host
   become: yes
   roles:
     - role: mysql

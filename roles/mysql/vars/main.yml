@@ -1,7 +1,10 @@
-docker_network_name: wordpress_network
-mysql_container_name: db
-mysql_image: mysql:latest
-mysql_root_password: wordpress
-mysql_database: wordpress
-mysql_user: wordpress
-mysql_password: wordpress
+# roles/mysql/vars/main.yml
+---
+# MySQL container configuration
+mysql_container_name: "mysql_container"
+mysql_image: "mysql:8.0"
+mysql_root_password: "securepassword"
+mysql_database: "wordpress"
+mysql_user: "wordpress"
+mysql_password: "wordpresspassword"
+mysql_port: 3306
