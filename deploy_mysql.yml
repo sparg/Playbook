@@ -1,5 +1,5 @@
 - name: Deploy and configure MySQL
-  hosts: all
+  hosts: containers_host
   become: yes
   roles:
     - role: mysql

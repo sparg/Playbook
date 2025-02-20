@@ -1,1 +1,14 @@
-ENV_MYSQL_PASSWORD: "{{ lookup('env','ENV_MYSQL_PASSWORD') | default('patata1234') }}"
+# Path: roles/common/tasks/main.yml
+# DOCKER
+
+# WORDPRESS
+
+# MySQL
+ENV_MYSQL_CONTAINER_NAME: "{{ lookup('env','ENV_MYSQL_CONTAINER_NAME') }}"
+ENV_MYSQL_IMAGE: "{{ lookup('env','ENV_MYSQL_IMAGE') }}"
+ENV_MYSQL_ROOT_PASSWORD: "{{ lookup('env','ENV_MYSQL_ROOT_PASSWORD') }}"
+ENV_MYSQL_DATABASE: "{{ lookup('env','ENV_MYSQL_DATABASE') }}"
+ENV_MYSQL_USER: "{{ lookup('env','ENV_MYSQL_USER') }}"
+ENV_MYSQL_PASSWORD: "{{ lookup('env','ENV_MYSQL_PASSWORD') }}"
+
+# HAPROXY
