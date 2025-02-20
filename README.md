@@ -1,6 +1,12 @@
 # Playbook
 
-## Arquitectura
+## System Architecture Description
+
+This repository contains the configuration and documentation for a web service architecture using HAProxy, WordPress, and MySQL, all hosted on an Azure virtual machine and managed with Docker.
+
+## Architecture Diagram
+
+Below is a diagram describing the system architecture:
 
 ```mermaid
 graph LR;
@@ -15,13 +21,6 @@ graph LR;
   end
 ```
 
-## Steps
-1. Connects to a remote server using SSH.
-2. Executes a series of commands on the remote server.
-3. Retrieves the output of the executed commands.
-4. Handles any errors that occur during the SSH connection or command execution.
-5. Closes the SSH connection after the commands have been executed.
-
 ## SSH connection
 
 ```bash
@@ -30,6 +29,19 @@ ssh usr@10.20.30.40 -i private_key
 
 ## Run script
 
+### Deploy Docker
 ```bash
-ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/install_docker.yml -e env.yml
+ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_docker.yml -e env.yml
+```
+### HAProxy
+```bash
+ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_haproxy.yml -e env.yml
+```
+### MySQL
+```bash
+ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_mysql.yml -e env.yml
+```
+### WordPress
+```bash
+ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_wordpress.yml -e env.yml
 ```
