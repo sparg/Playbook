@@ -1,5 +1,5 @@
 - name: Deploy Docker on Linux VM
-  hosts: containers_host
+  hosts: all
   become: yes
   roles:
     - role: docker

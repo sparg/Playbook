@@ -1,5 +1,5 @@
 - name: Deploy and configure HAProxy
-  hosts: containers_host
+  hosts: all
   become: yes
   roles:
     - haproxy
