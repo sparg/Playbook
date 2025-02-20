@@ -2,25 +2,25 @@
   docker_volume:
     name: wordpress_data
 
-- name: Crear volumen para datos persistentes de MySQL
-  docker_volume:
-    name: mysql_data
+# - name: Crear volumen para datos persistentes de MySQL
+#   docker_volume:
+#     name: mysql_data
 
-- name: Deploy MySQL container (si no lo has hecho aún)
-  docker_container:
-    name: "{{ mysql_container_name }}"
-    image: "{{ mysql_image }}"
-    state: started
-    restart_policy: always
-    env:
-      MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
-      MYSQL_DATABASE: "{{ mysql_database | default('wordpress_db') }}"
-      MYSQL_USER: "{{ mysql_user | default('wordpress_user') }}"
-      MYSQL_PASSWORD: "{{ mysql_password | default('mi_contraseña') }}"
-    published_ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+# - name: Deploy MySQL container (si no lo has hecho aún)
+#   docker_container:
+#     name: "{{ mysql_container_name }}"
+#     image: "{{ mysql_image }}"
+#     state: started
+#     restart_policy: always
+#     env:
+#       MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+#       MYSQL_DATABASE: "{{ mysql_database | default('wordpress_db') }}"
+#       MYSQL_USER: "{{ mysql_user | default('wordpress_user') }}"
+#       MYSQL_PASSWORD: "{{ mysql_password | default('mi_contraseña') }}"
+#     published_ports:
+#       - "3306:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
 
 - name: Deploy WordPress container
   docker_container:

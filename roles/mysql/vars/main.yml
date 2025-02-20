@@ -1,10 +1,10 @@
 # roles/mysql/vars/main.yml
 ---
 # MySQL container configuration
-mysql_container_name: "mysql_container"
-mysql_image: "mysql:8.0"
+mysql_container_name: "mysql"
+mysql_image: "mysql:8.0.41"
 mysql_root_password: "securepassword"
-mysql_database: "wordpress"
-mysql_user: "wordpress"
-mysql_password: "wordpresspassword"
+mysql_database: "wordpress_db"
+mysql_user: "wordpress_user"
+mysql_password: "aB3dE5gH7jaB3dE5gH7j"
 mysql_port: 3306

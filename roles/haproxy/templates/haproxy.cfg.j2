@@ -1,36 +1,33 @@
 global
-    log /dev/log    local0
-    log /dev/log    local1 notice
-    chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-    stats timeout 30s
-    user haproxy
-    group haproxy
+    log 127.0.0.1   local0
+    log 127.0.0.1   local1 notice
+    maxconn 4096
     daemon
 
 defaults
+    balance leastconn
     log     global
     mode    http
     option  httplog
+    option  httpchk
+    option  http-server-close
     option  dontlognull
-    option  forwardfor
-    http-request set-header X-Forwarded-For %[src]
-    timeout connect 5000ms
-    timeout client  50000ms
-    timeout server  50000ms
+    option  forwardfor    
+    timeout connect  10s
+    timeout server   30s
 
 frontend http_front
     bind *:80
     default_backend http_back
-
-backend http_back
-    balance roundrobin
-    {% for server in backend_servers %}
-    server {{ server.name }} {{ server.ip }}:{{ server.port }} check
-    {% endfor %}
 
 frontend stats
     bind *:{{ haproxy_stats_port }}
     stats enable
     stats uri /stats
     stats auth {{ haproxy_stats_user }}:{{ haproxy_stats_password }}
+
+backend http_back
+    balance leastconn
+    {% for server in backend_servers %}
+    server {{ server.name }} {{ server.ip }}:{{ server.port }} check
+    {% endfor %}
