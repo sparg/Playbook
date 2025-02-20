@@ -1,5 +1,7 @@
 # Path: roles/common/tasks/main.yml
 # DOCKER
+ENV_DOCKER_GPG_KEY_URL: "{{ lookup('env','ENV_DOCKER_GPG_KEY_URL') }}"
+ENV_DOCKER_REPO_URL: "{{ lookup('env','ENV_DOCKER_REPO_URL') }}"
 
 # WORDPRESS
 

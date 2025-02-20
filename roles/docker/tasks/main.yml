@@ -19,12 +19,12 @@
 
 - name: Add Docker's official GPG key
   apt_key:
-    url: "{{ docker_gpg_key_url }}"
+    url: "{{ ENV_DOCKER_GPG_KEY_URL }}"
     state: present
 
 - name: Add Docker's official repository
   apt_repository:
-    repo: "{{ docker_repo_url }}"
+    repo: "{{ ENV_DOCKER_REPO_URL }}"
     state: present
     filename: docker
 
