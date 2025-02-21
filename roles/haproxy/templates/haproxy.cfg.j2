@@ -21,10 +21,10 @@ frontend http_front
     default_backend http_back
 
 frontend stats
-    bind *:{{ haproxy_stats_port }}
+    bind *:{{ ENV_HAPROXY_STATS_PORT }}
     stats enable
     stats uri /stats
-    stats auth {{ haproxy_stats_user }}:{{ haproxy_stats_password }}
+    stats auth {{ ENV_HAPROXY_STATS_USER }}:{{ ENV_HAPROXY_STATS_PASSWORD }}
 
 backend http_back
     balance leastconn

@@ -3,11 +3,6 @@
 ENV_DOCKER_GPG_KEY_URL: "{{ lookup('env','ENV_DOCKER_GPG_KEY_URL') }}"
 ENV_DOCKER_REPO_URL: "{{ lookup('env','ENV_DOCKER_REPO_URL') }}"
 
-# WORDPRESS
-ENV_WORDPRESS_CONTAINER_NAME: "{{ lookup('env','ENV_WORDPRESS_CONTAINER_NAME') }}"
-ENV_WORDPRESS_IMAGE: "{{ lookup('env','ENV_WORDPRESS_IMAGE') }}"
-ENV_WORDPRESS_PORT: "{{ lookup('env','ENV_WORDPRESS_PORT') }}"
-
 # MySQL
 ENV_MYSQL_CONTAINER_NAME: "{{ lookup('env','ENV_MYSQL_CONTAINER_NAME') }}"
 ENV_MYSQL_IMAGE: "{{ lookup('env','ENV_MYSQL_IMAGE') }}"
@@ -18,4 +13,24 @@ ENV_MYSQL_PASSWORD: "{{ lookup('env','ENV_MYSQL_PASSWORD') }}"
 ENV_MYSQL_HOST: "{{ lookup('env','ENV_MYSQL_HOST') }}"
 ENV_MYSQL_PORT: "{{ lookup('env','ENV_MYSQL_PORT') }}"
 
-# HAPROXY
+# WORDPRESS
+ENV_WORDPRESS_CONTAINER_NAME: "{{ lookup('env','ENV_WORDPRESS_CONTAINER_NAME') }}"
+ENV_WORDPRESS_IMAGE: "{{ lookup('env','ENV_WORDPRESS_IMAGE') }}"
+ENV_WORDPRESS_PORT: "{{ lookup('env','ENV_WORDPRESS_PORT') }}"
+
+# HAProxy
+ENV_HAPROXY_BACKENDS: "{{ lookup('env','ENV_HAPROXY_BACKENDS') }}"
+ENV_HAPROXY_BACKENDS_IP: "{{ lookup('env','ENV_HAPROXY_BACKENDS_IP') }}"
+ENV_HAPROXY_BACKENDS_PORTS: "{{ lookup('env','ENV_HAPROXY_BACKENDS_PORTS') }}"
+# HAProxy container configuration
+ENV_HAPROXY_CONTAINER_NAME: "{{ lookup('env','ENV_HAPROXY_CONTAINER_NAME') }}"
+ENV_HAPROXY_IMAGE: "{{ lookup('env','ENV_HAPROXY_IMAGE') }}"
+# HAProxy stats configuration
+ENV_HAPROXY_STATS_PORT: "{{ lookup('env','ENV_HAPROXY_STATS_PORT') }}"
+ENV_HAPROXY_STATS_USER: "{{ lookup('env','ENV_HAPROXY_STATS_USER') }}"
+ENV_HAPROXY_STATS_PASSWORD: "{{ lookup('env','ENV_HAPROXY_STATS_PASSWORD') }}"
+# HAProxy backend servers
+backend_servers:
+  - name: "{{ ENV_HAPROXY_BACKENDS }}"
+    ip: "{{ ENV_HAPROXY_BACKENDS_IP }}"
+    port: "{{ ENV_HAPROXY_BACKENDS_PORTS }}"

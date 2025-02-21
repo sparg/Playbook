@@ -16,17 +16,18 @@
 
 - name: Deploy HAProxy container
   docker_container:
-    name: "{{ haproxy_container_name }}"
-    image: "{{ haproxy_image }}"
+    name: "{{ ENV_HAPROXY_CONTAINER_NAME }}"
+    image: "{{ ENV_HAPROXY_IMAGE }}"
     restart_policy: always
     state: started
     ports:
       - "80:80"
-      - "{{ haproxy_stats_port }}:{{ haproxy_stats_port }}"
+      - "{{ ENV_HAPROXY_STATS_PORT }}:{{ ENV_HAPROXY_STATS_PORT }}"
     volumes:
       - /etc/haproxy:/usr/local/etc/haproxy:ro
 
 - name: Ensure HAProxy container is running
   docker_container:
-    name: "{{ haproxy_container_name }}"
+    name: "{{ ENV_HAPROXY_CONTAINER_NAME }}"
     state: started
+  
