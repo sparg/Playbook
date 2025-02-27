@@ -31,17 +31,9 @@ ssh usr@10.20.30.40 -i private_key
 
 ### Deploy Docker
 ```bash
-ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_docker.yml -e env.yml
+ansible-playbook -i inventory.ini -e @env.yml deploy_docker.yml
 ```
-### HAProxy
+### Deploy HAProxy - MySQL - WordPress
 ```bash
-ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_haproxy.yml -e env.yml
-```
-### MySQL
-```bash
-ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_mysql.yml -e env.yml
-```
-### WordPress
-```bash
-ansible-playbook -i /home/usr/Playbook/inventory.ini /home/usr/Playbook/deploy_wordpress.yml -e env.yml
+ansible-playbook -i inventory.ini -e @env.yml deploy_all.yml
 ```
